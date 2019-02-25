@@ -11,6 +11,7 @@ public class NodeView : MonoBehaviour
 
     // TODO: this doesn't quite work.  most of the time it is null.
     Node m_node;
+    public TileColors tileColors;
 
     Vector2 m_coordinate;
     public Vector2 Coordinate { get { return Utility.Vector2Round(m_coordinate); } }
@@ -22,6 +23,7 @@ public class NodeView : MonoBehaviour
 
     Color nodeColor;
     Color emptyColor = new Color(0, 0, 0, 0);   // TODO: hack for editor coloring to work.
+    GraphView ownerGraph;
 
     [OnValueChanged("NodeTypeChanged")]
     public NodeType nodeType;
@@ -31,17 +33,18 @@ public class NodeView : MonoBehaviour
             return;
 
         m_node.nodeType = nodeType;
-        nodeColor = TileData.GetColorFromNodeType(nodeType);
+        nodeColor = tileColors.GetNodeTypeColor(nodeType);
     }
 
     void Start()
     {
-        xIndex = (int)transform.position.x;
-        yIndex = (int)transform.position.z;
+        ownerGraph = this.GetComponentInParent<GraphView>();
     }
 
     public void SetFromNode(Node node)
     {
+        var parent = this.GetComponentInParent<GraphView>();
+
         gameObject.name = "Node (" + node.xIndex + "," + node.yIndex + ")";
         gameObject.transform.position = new Vector3(node.position.x + 0.5f, node.position.y, node.position.z + 0.5f);
         gameObject.transform.localScale = new Vector3(1f - borderSize, 1f, 1f - borderSize);
@@ -50,7 +53,7 @@ public class NodeView : MonoBehaviour
         m_coordinate = new Vector2(xIndex, yIndex);
 
         nodeType = node.nodeType;
-        nodeColor = TileData.GetColorFromNodeType(nodeType);
+        nodeColor = parent.m_tileColors.GetNodeTypeColor(nodeType);
         xIndex = node.xIndex;
         yIndex = node.yIndex;
 
@@ -88,9 +91,11 @@ public class NodeView : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        var parent = this.GetComponentInParent<GraphView>();
+
         if (nodeColor == emptyColor)
         {
-            Gizmos.color = TileData.GetColorFromNodeType(nodeType);
+            Gizmos.color = parent.m_tileColors.GetNodeTypeColor(nodeType);
         }
         else
         {

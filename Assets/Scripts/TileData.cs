@@ -8,25 +8,28 @@ using UnityEngine;
 public class TileData : MonoBehaviour
 {
     [OnValueChanged("OnColorChanged")]
-    public static Color openColor = new Color(1f, 1f, 1f, 0.5f);
+    public static Color openColor = new Color(1f, 1f, 1f, 0.9f);
 
     [OnValueChanged("OnColorChanged")]
-    public static Color blockColor = new Color(0f, 0f, 0f, 0.5f);
+    public static Color blockColor = new Color(0f, 0f, 0f, 0.9f);
 
     [OnValueChanged("OnColorChanged")]
-    public static Color lightTerrainColor = new Color(0f, 1f, 0f, 0.5f);
+    public static Color lightTerrainColor = new Color(0f, 1f, 0f, 0.9f);
 
     [OnValueChanged("OnColorChanged")]
-    public static Color mediumTerrainColor = new Color(1f, 1f, 0f, 0.5f);
+    public static Color mediumTerrainColor = new Color(1f, 1f, 0f, 0.9f);
 
     [OnValueChanged("OnColorChanged")]
-    public static Color heavyTerrainColor = new Color(1f, 0.75f, 0f, 0.5f);
+    public static Color heavyTerrainColor = new Color(1f, 0.75f, 0f, 0.9f);
 
     [OnValueChanged("OnColorChanged")]
-    public static Color waterColor = new Color(0f, 0f, 1f, 0.5f);
+    public static Color waterColor = new Color(0f, 0f, 1f, 0.9f);
 
     [OnValueChanged("OnColorChanged")]
-    public static Color lavaColor = new Color(1f, 0f, 0f, 0.5f);
+    public static Color lavaColor = new Color(1f, 0f, 0f, 0.9f);
+
+    [OnValueChanged("OnColorChanged")]
+    public static Color connectorColor = new Color(1f, 1f, 1f, 0.9f);
 
     public static Dictionary<Color, NodeType> terrainLookupTable = new Dictionary<Color, NodeType>();
 
@@ -46,6 +49,7 @@ public class TileData : MonoBehaviour
         terrainLookupTable.Add(heavyTerrainColor, NodeType.HeavyTerrain);
         terrainLookupTable.Add(waterColor, NodeType.Water);
         terrainLookupTable.Add(lavaColor, NodeType.Lava);
+        terrainLookupTable.Add(connectorColor, NodeType.Connector);
     }
 
     public int[,] MakeTileData(int width, int height)
@@ -75,7 +79,7 @@ public class TileData : MonoBehaviour
             terrainLookupTable.Add(mediumTerrainColor, NodeType.MediumTerrain);
             terrainLookupTable.Add(heavyTerrainColor, NodeType.HeavyTerrain);
             terrainLookupTable.Add(waterColor, NodeType.Water);
-            terrainLookupTable.Add(lavaColor, NodeType.Lava);
+            terrainLookupTable.Add(connectorColor, NodeType.Connector);
         }
 
         if (terrainLookupTable.ContainsValue(nodeType))

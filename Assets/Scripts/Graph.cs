@@ -70,6 +70,7 @@ public class Graph : MonoBehaviour
         return (x >= 0 && x < m_width && y >= 0 && y < m_height);
     }
 
+    // calculates edges between neighboring nodes.
     List<Node> GetNeighbors(int x, int y, Node[,] nodeArray, Vector2[] directions)
     {
         List<Node> neighborNodes = new List<Node>();
@@ -115,6 +116,7 @@ public class Graph : MonoBehaviour
 
         // diagonal steps cost 1.4, straight steps cost 1.
         return 1.4f * diagonalSteps + straightSteps;
+        //return diagonalSteps + straightSteps;
     }
 
     public int GetManhattanDistance(Node source, Node target)

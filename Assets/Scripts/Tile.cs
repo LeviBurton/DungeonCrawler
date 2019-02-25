@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,39 +10,39 @@ public class Tile : MonoBehaviour
 {
     public string tileId;
 
-    public Pathfinder m_pathFinder;
-
     public int width = 5;
     public int height = 5;
-
-    List<NodeView> nodeViews = new List<NodeView>();
-    Graph m_graph;
-    GraphView m_graphView;
-
-    int[,] m_tileData;
 
     public int startX = 0;
     public int startY = 0;
     public int goalX = 4;
     public int goalY = 3;
+
     public float timeStep = 0.1f;
+
+    public Pathfinder m_pathFinder;
+
+    Graph m_graph;
+    GraphView m_graphView;
+    List<NodeView> nodeViews = new List<NodeView>();    // TODO: consider moving this to GraphView.
+    int[,] m_tileData;
 
     void Awake()
     {
         m_graph = GetComponent<Graph>();
         m_graphView = GetComponent<GraphView>();
         m_pathFinder = GetComponent<Pathfinder>();
+    }
 
+    void Start()
+    {
         NodeView[] nodes = CreatGraphFromNodeViews();
 
         if (m_graphView != null)
         {
             m_graphView.Init(m_graph, nodes);
         }
-    }
 
-    void Start()
-    {
         if (m_graph.IsWithinBounds(startX, startY) && m_graph.IsWithinBounds(goalX, goalY) && m_pathFinder != null)
         {
             Node startNode = m_graph.nodes[startX, startY];
@@ -55,27 +56,30 @@ public class Tile : MonoBehaviour
     {
         int[,] tileData = new int[width, height];
 
-        var nodes = GetComponentsInChildren<NodeView>();
+        var nodeViews = this.GetComponentsInChildren<NodeView>();
 
-        foreach (var node in nodes)
+        foreach (var node in nodeViews)
         {
-            NodeType nodeType = node.nodeType;
-
-            int xIndex = node.xIndex;
-            int yIndex = node.yIndex;
-            
-            tileData[xIndex, yIndex] = (int)node.nodeType;
+            try
+            {
+                tileData[node.xIndex, node.yIndex] = (int)node.nodeType;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Debug.LogFormat("{0} {1} {2}", node.name, node.xIndex, node.yIndex);
+            }
         }
 
         m_graph.Init(tileData);
 
-        return nodes;
+        return nodeViews;
     }
 
     [Button(Name = "Reset Graph Nodes")]
     void ResetGraphNodes()
     {
         m_graph = GetComponent<Graph>();
+        m_graphView = GetComponent<GraphView>();
 
         var tempList = transform.Cast<Transform>().ToList();
 
@@ -89,16 +93,11 @@ public class Tile : MonoBehaviour
             }
         }
 
-        ResetTileData(width, height);
-
-        if (m_graphView == null)
-        {
-            m_graphView = GetComponent<GraphView>();
-        }
+        ResetGraphTileData(width, height);
 
         if (m_graphView != null)
         {
-            m_graphView.Reset(m_graph, tileId);
+            m_graphView.RebuildNodeViews(m_graph, tileId);
 
             foreach (var node in m_graphView.m_nodeViews)
             {
@@ -107,7 +106,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    void ResetTileData(int width, int height)
+    void ResetGraphTileData(int width, int height)
     {
         m_tileData = new int[width, height];
 

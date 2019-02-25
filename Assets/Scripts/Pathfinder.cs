@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
+    public TerrainCosts terrainCosts;
+
     Node m_startNode;
     Node m_goalNode;
     Graph m_graph;
     GraphView m_graphView;
-
+    
     PriorityQueue<Node> m_frontierNodes;
     List<Node> m_exploredNodes;
     List<Node> m_pathNodes;
@@ -183,7 +185,7 @@ public class Pathfinder : MonoBehaviour
         Debug.Log("Pathfinder SearchRouting: elapse time = " + (Time.realtimeSinceStartup - timeStart).ToString() + " seconds");
     }
 
-    private void ShowDiagnostics(bool lerpColor = false, float lerpValue = 0.5f)
+    void ShowDiagnostics(bool lerpColor = false, float lerpValue = 0.5f)
     {
         if (showColors)
         {
@@ -232,7 +234,11 @@ public class Pathfinder : MonoBehaviour
                 if (!m_exploredNodes.Contains(node.neighbors[i]))
                 {
                     float distanceToNeighbor = m_graph.GetNodeDistance(node, node.neighbors[i]);
-                    float newDistanceTraveled = distanceToNeighbor + node.distanceTraveled + (int)node.nodeType;
+
+                    float newDistanceTraveled = 
+                        distanceToNeighbor + 
+                        node.distanceTraveled + 
+                        terrainCosts.GetCost(node.nodeType);
 
                     if (float.IsPositiveInfinity(node.neighbors[i].distanceTraveled) ||
                         newDistanceTraveled < node.neighbors[i].distanceTraveled)
@@ -285,7 +291,12 @@ public class Pathfinder : MonoBehaviour
                 if (!m_exploredNodes.Contains(node.neighbors[i]))
                 {
                     float distanceToNeighbor = m_graph.GetNodeDistance(node, node.neighbors[i]);
-                    float newDistanceTraveled = distanceToNeighbor + node.distanceTraveled + (int)node.nodeType;
+
+                    // TODO: Compute node cost here!
+                    float newDistanceTraveled = 
+                        distanceToNeighbor + 
+                        node.distanceTraveled + 
+                        terrainCosts.GetCost(node.nodeType);
 
                     if (float.IsPositiveInfinity(node.neighbors[i].distanceTraveled) ||
                         newDistanceTraveled < node.neighbors[i].distanceTraveled)

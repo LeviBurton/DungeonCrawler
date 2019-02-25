@@ -8,6 +8,7 @@ public class GraphView : MonoBehaviour
     public GameObject nodeViewPrefab;
     public NodeView[,] m_nodeViews;
     public Graph m_graph;
+    public TileColors m_tileColors;
 
     TileData m_tileData;
     string tileId;
@@ -17,7 +18,7 @@ public class GraphView : MonoBehaviour
         m_tileData = GetComponent<TileData>();
     }
 
-    public void Reset(Graph graph, string tileId = "")
+    public void RebuildNodeViews(Graph graph, string tileId = "")
     {
         m_nodeViews = new NodeView[graph.Width, graph.Height];
         m_tileData = GetComponent<TileData>();
@@ -34,10 +35,11 @@ public class GraphView : MonoBehaviour
                 nodeView.xIndex = n.xIndex;
                 nodeView.yIndex = n.yIndex;
                 nodeView.tileId = tileId;
+                nodeView.tileColors = m_tileColors;
 
                 m_nodeViews[n.xIndex, n.yIndex] = nodeView;
 
-                Color originalColor = TileData.GetColorFromNodeType(n.nodeType);
+                Color originalColor = m_tileColors.GetNodeTypeColor(n.nodeType);
                 nodeView.ColorNode(originalColor);
             }
         }
@@ -52,8 +54,8 @@ public class GraphView : MonoBehaviour
 
         foreach (var view in nodeViews)
         {
-            Color originalColor = TileData.GetColorFromNodeType(view.nodeType);
-            
+            Color originalColor = m_tileColors.GetNodeTypeColor(view.nodeType);
+            view.tileColors = m_tileColors;
             m_nodeViews[view.xIndex, view.yIndex] = view;
             view.ColorNode(originalColor);
         }
@@ -70,7 +72,7 @@ public class GraphView : MonoBehaviour
 
                 if (lerpColor)
                 {
-                    Color originalColor = TileData.GetColorFromNodeType(n.nodeType);
+                    Color originalColor = m_tileColors.GetNodeTypeColor(n.nodeType);
                     newColor = Color.Lerp(originalColor, newColor, lerpValue);
                 }
 
