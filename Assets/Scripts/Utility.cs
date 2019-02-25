@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Utility
+public class Utility 
 {
     public static Vector3 Vector3Round(Vector3 inputVector)
     {

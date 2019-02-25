@@ -25,6 +25,9 @@ public class TileData : MonoBehaviour
     [OnValueChanged("OnColorChanged")]
     public static Color waterColor = new Color(0f, 0f, 1f, 0.5f);
 
+    [OnValueChanged("OnColorChanged")]
+    public static Color lavaColor = new Color(1f, 0f, 0f, 0.5f);
+
     public static Dictionary<Color, NodeType> terrainLookupTable = new Dictionary<Color, NodeType>();
 
     void OnColorChanged()
@@ -42,6 +45,7 @@ public class TileData : MonoBehaviour
         terrainLookupTable.Add(mediumTerrainColor, NodeType.MediumTerrain);
         terrainLookupTable.Add(heavyTerrainColor, NodeType.HeavyTerrain);
         terrainLookupTable.Add(waterColor, NodeType.Water);
+        terrainLookupTable.Add(lavaColor, NodeType.Lava);
     }
 
     public int[,] MakeTileData(int width, int height)
@@ -71,6 +75,7 @@ public class TileData : MonoBehaviour
             terrainLookupTable.Add(mediumTerrainColor, NodeType.MediumTerrain);
             terrainLookupTable.Add(heavyTerrainColor, NodeType.HeavyTerrain);
             terrainLookupTable.Add(waterColor, NodeType.Water);
+            terrainLookupTable.Add(lavaColor, NodeType.Lava);
         }
 
         if (terrainLookupTable.ContainsValue(nodeType))

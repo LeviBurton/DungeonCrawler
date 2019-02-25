@@ -11,7 +11,8 @@ public enum NodeType
     LightTerrain = 2,
     MediumTerrain = 3,
     HeavyTerrain = 4,
-    Water = 5
+    Water = 5,
+    Lava = 6
 }
 
 public class Node : IComparable<Node>

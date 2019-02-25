@@ -10,13 +10,14 @@ public class GraphView : MonoBehaviour
     public Graph m_graph;
 
     TileData m_tileData;
+    string tileId;
 
     void Awake()
     {
         m_tileData = GetComponent<TileData>();
     }
 
-    public void Reset(Graph graph)
+    public void Reset(Graph graph, string tileId = "")
     {
         m_nodeViews = new NodeView[graph.Width, graph.Height];
         m_tileData = GetComponent<TileData>();
@@ -29,6 +30,11 @@ public class GraphView : MonoBehaviour
             if (nodeView != null)
             {
                 nodeView.SetFromNode(n);
+                
+                nodeView.xIndex = n.xIndex;
+                nodeView.yIndex = n.yIndex;
+                nodeView.tileId = tileId;
+
                 m_nodeViews[n.xIndex, n.yIndex] = nodeView;
 
                 Color originalColor = TileData.GetColorFromNodeType(n.nodeType);
@@ -47,7 +53,7 @@ public class GraphView : MonoBehaviour
         foreach (var view in nodeViews)
         {
             Color originalColor = TileData.GetColorFromNodeType(view.nodeType);
-
+            
             m_nodeViews[view.xIndex, view.yIndex] = view;
             view.ColorNode(originalColor);
         }

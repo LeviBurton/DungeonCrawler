@@ -7,6 +7,7 @@ using UnityEngine;
 public class Graph : MonoBehaviour
 {
     public Node[,] nodes;
+
     public List<Node> walls = new List<Node>();
     public int Width { get { return m_width; } }
     public int Height { get { return m_height; } }

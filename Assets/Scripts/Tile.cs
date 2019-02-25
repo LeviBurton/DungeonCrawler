@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Graph))]
 public class Tile : MonoBehaviour
 {
+    public string tileId;
+
     public Pathfinder m_pathFinder;
 
     public int width = 5;
@@ -61,7 +63,7 @@ public class Tile : MonoBehaviour
 
             int xIndex = node.xIndex;
             int yIndex = node.yIndex;
-
+            
             tileData[xIndex, yIndex] = (int)node.nodeType;
         }
 
@@ -76,6 +78,8 @@ public class Tile : MonoBehaviour
         m_graph = GetComponent<Graph>();
 
         var tempList = transform.Cast<Transform>().ToList();
+
+        nodeViews.Clear();
 
         foreach (var child in tempList)
         {
@@ -94,7 +98,12 @@ public class Tile : MonoBehaviour
 
         if (m_graphView != null)
         {
-            m_graphView.Reset(m_graph);
+            m_graphView.Reset(m_graph, tileId);
+
+            foreach (var node in m_graphView.m_nodeViews)
+            {
+                node.tileId = tileId;
+            }
         }
     }
 

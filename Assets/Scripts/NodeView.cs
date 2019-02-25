@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class NodeView : MonoBehaviour
 {
+    public string tileId;
+
     public GameObject arrow;
 
     // TODO: this doesn't quite work.  most of the time it is null.
     Node m_node;
- 
-    public int yIndex;
+
+    Vector2 m_coordinate;
+    public Vector2 Coordinate { get { return Utility.Vector2Round(m_coordinate); } }
     public int xIndex;
+    public int yIndex;
 
     [Range(0, 0.5f)]
     public float borderSize = 0.15f;    // TODO: not currently used.
@@ -30,17 +34,25 @@ public class NodeView : MonoBehaviour
         nodeColor = TileData.GetColorFromNodeType(nodeType);
     }
 
+    void Start()
+    {
+        xIndex = (int)transform.position.x;
+        yIndex = (int)transform.position.z;
+    }
+
     public void SetFromNode(Node node)
     {
-        gameObject.name = "Node View (" + node.xIndex + "," + node.yIndex + ")";
+        gameObject.name = "Node (" + node.xIndex + "," + node.yIndex + ")";
         gameObject.transform.position = new Vector3(node.position.x + 0.5f, node.position.y, node.position.z + 0.5f);
         gameObject.transform.localScale = new Vector3(1f - borderSize, 1f, 1f - borderSize);
 
         m_node = node;
-        xIndex = node.xIndex;
-        yIndex = node.yIndex;
+        m_coordinate = new Vector2(xIndex, yIndex);
+
         nodeType = node.nodeType;
         nodeColor = TileData.GetColorFromNodeType(nodeType);
+        xIndex = node.xIndex;
+        yIndex = node.yIndex;
 
         EnableObject(arrow, false);
     }
