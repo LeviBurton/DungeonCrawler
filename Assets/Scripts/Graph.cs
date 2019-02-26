@@ -8,6 +8,8 @@ public class Graph : MonoBehaviour
 {
     public Node[,] nodes;
 
+    public List<Node> m_nodeList = new List<Node>();
+
     public List<Node> walls = new List<Node>();
     public int Width { get { return m_width; } }
     public int Height { get { return m_height; } }
@@ -35,16 +37,20 @@ public class Graph : MonoBehaviour
         m_height = mapData.GetLength(1);
 
         nodes = new Node[m_width, m_height];
-
+        
         for (int y = 0; y < m_height; y++)
         {
             for (int x = 0; x < m_width; x++)
             {
                 NodeType type = (NodeType)mapData[x, y];
+
                 Node newNode = new Node(x, y, type);
+
                 nodes[x, y] = newNode;
 
                 newNode.position = new Vector3(x, 0, y);
+
+                m_nodeList.Add(newNode);
 
                 if (type == NodeType.Blocked)
                 {
@@ -57,6 +63,13 @@ public class Graph : MonoBehaviour
         {
             for (int x = 0; x < m_width; x++)
             {
+                var node = m_nodeList[y * m_width + x];
+
+                if (node.nodeType != NodeType.Blocked)
+                {
+                    node.neighbors = GetNeighbors(x, y);
+                }
+
                 if (nodes[x, y].nodeType != NodeType.Blocked)
                 {
                     nodes[x, y].neighbors = GetNeighbors(x, y);
@@ -80,6 +93,7 @@ public class Graph : MonoBehaviour
             int newX = x + (int)dir.x;
             int newY = y + (int)dir.y;
 
+            
             bool isValidNode =
                 IsWithinBounds(newX, newY) &&
                 nodeArray[newX, newY] != null &&

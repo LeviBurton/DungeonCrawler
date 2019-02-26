@@ -333,6 +333,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="YC.QuickGraph">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Assets/Plugins/QuickGraph/YC.QuickGraph.dll</HintPath>
+    </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>

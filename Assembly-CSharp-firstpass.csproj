@@ -302,6 +302,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.2f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="YC.QuickGraph">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Assets/Plugins/QuickGraph/YC.QuickGraph.dll</HintPath>
+    </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>

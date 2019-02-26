@@ -212,7 +212,7 @@ public class Pathfinder : MonoBehaviour
                     !m_frontierNodes.Contains(node.neighbors[i]))
                 {
                     float distanceToNeighbor = m_graph.GetNodeDistance(node, node.neighbors[i]);
-                    float newDistanceTraveled = distanceToNeighbor + node.distanceTraveled + (int)node.nodeType;
+                    float newDistanceTraveled = distanceToNeighbor + node.distanceTraveled + terrainCosts.GetCost(node.nodeType);
 
                     node.neighbors[i].distanceTraveled = newDistanceTraveled;
 
@@ -267,7 +267,7 @@ public class Pathfinder : MonoBehaviour
                     !m_frontierNodes.Contains(node.neighbors[i]))
                 {
                     float distanceToNeighbor = m_graph.GetNodeDistance(node, node.neighbors[i]);
-                    float newDistanceTraveled = distanceToNeighbor + node.distanceTraveled + (int)node.nodeType;
+                    float newDistanceTraveled = distanceToNeighbor + node.distanceTraveled + terrainCosts.GetCost(node.nodeType);
                     node.neighbors[i].distanceTraveled = newDistanceTraveled;
 
                     node.neighbors[i].previous = node;

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using Burton.Lib.Graph;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ public class Tile : MonoBehaviour
 
     public Pathfinder m_pathFinder;
 
+    SparseGraph<NavGraphNode, GraphEdge> m_sparseGraph;
+
     Graph m_graph;
     GraphView m_graphView;
     List<NodeView> nodeViews = new List<NodeView>();    // TODO: consider moving this to GraphView.
@@ -32,6 +35,7 @@ public class Tile : MonoBehaviour
         m_graph = GetComponent<Graph>();
         m_graphView = GetComponent<GraphView>();
         m_pathFinder = GetComponent<Pathfinder>();
+        m_sparseGraph = new SparseGraph<NavGraphNode, GraphEdge>();
     }
 
     void Start()
@@ -43,16 +47,16 @@ public class Tile : MonoBehaviour
             m_graphView.Init(m_graph, nodes);
         }
 
-        if (m_graph.IsWithinBounds(startX, startY) && m_graph.IsWithinBounds(goalX, goalY) && m_pathFinder != null)
-        {
-            Node startNode = m_graph.nodes[startX, startY];
-            Node goalNode = m_graph.nodes[goalX, goalY];
-            m_pathFinder.Init(m_graph, m_graphView, startNode, goalNode);
-            StartCoroutine(m_pathFinder.SearchRoutine(timeStep));
-        }
+        
+        var node1 = m_sparseGraph.AddNode(new NavGraphNode(m_sparseGraph.GetNextFreeNodeIndex(), Vector3.zero));
+        var node2 = m_sparseGraph.AddNode(new NavGraphNode(m_sparseGraph.GetNextFreeNodeIndex(), Vector3.zero));
+
+        m_sparseGraph.AddEdge(new GraphEdge(node1, node2, 1.0f));
+
+        Debug.Log(m_sparseGraph.NodeCount());
     }
 
-    private NodeView[] CreatGraphFromNodeViews()
+    NodeView[] CreatGraphFromNodeViews()
     {
         int[,] tileData = new int[width, height];
 

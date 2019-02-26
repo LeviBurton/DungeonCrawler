@@ -45,9 +45,23 @@ public class GraphView : MonoBehaviour
         }
     }
 
+    public void Init(Graph graph)
+    {
+        m_graph = graph;
+
+        foreach (var view in m_nodeViews)
+        {
+            Color originalColor = m_tileColors.GetNodeTypeColor(view.nodeType);
+            view.tileColors = m_tileColors;
+            view.ColorNode(originalColor);
+        }
+    }
+
+
     public void Init(Graph graph, NodeView[] nodeViews)
     {
         m_graph = graph;
+
         m_nodeViews = new NodeView[m_graph.Width, m_graph.Height];
 
         m_tileData = GetComponent<TileData>();

@@ -61,11 +61,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CinemachinePostProcessingV2\CinemachinePostProcessing.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\AdjacencyList.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\Graph_SearchTimeSliced.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\GraphEdge.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\GraphNode.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\GraphSearchBFS.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\GraphSearchDFS.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\GraphSearchDijkstra.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\HeuristicEuclid.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\IHeuristic.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\NavGraphNode.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\PathEdge.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\PathManager.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\PathPlanner.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\Search_AStar.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\SparseGraph.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\Graph\UnityGraphNode.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\PriorityQueue\IndexedPriorityQueueLow.cs" />
+    <Compile Include="Assets\Scripts\Burton.Lib\PriorityQueue\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Graph.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityEdge.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityGraph.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityHeuristicEuclid.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityNode.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityPathEdge.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityPathManager.cs" />
+    <Compile Include="Assets\Scripts\Graph\UnityPathPlanner.cs" />
     <Compile Include="Assets\Scripts\GraphView.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\NodeView.cs" />
     <Compile Include="Assets\Scripts\Pathfinder.cs" />
+    <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\TerrainCosts.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
@@ -316,6 +343,9 @@
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.2f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="YC.QuickGraph">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Assets/Plugins/QuickGraph/YC.QuickGraph.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll</HintPath>
