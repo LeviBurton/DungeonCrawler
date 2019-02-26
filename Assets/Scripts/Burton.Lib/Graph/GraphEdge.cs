@@ -47,8 +47,8 @@ namespace Burton.Lib.Graph
 
         public GraphEdge()
         {
-            this.FromNodeIndex = (int)NodeType.InvalidNodeIndex;
-            this.ToNodeIndex = (int)NodeType.InvalidNodeIndex;
+            this.FromNodeIndex = (int)ENodeType.InvalidNodeIndex;
+            this.ToNodeIndex = (int)ENodeType.InvalidNodeIndex;
             this.EdgeCost = 1.0f;
         }
     }

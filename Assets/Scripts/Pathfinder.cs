@@ -1,8 +1,65 @@
-﻿using System.Collections;
+﻿using Burton.Lib.Graph;
+using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class UnityDistanceHeuristic : IHeuristic<SparseGraph<NavGraphNode, GraphEdge>>
+{
+    public double Calculate(SparseGraph<NavGraphNode, GraphEdge> graph, int srcNodeIndex, int destNodeIndex)
+    {
+        var srcNode = graph.GetNode(srcNodeIndex);
+        var destNode = graph.GetNode(destNodeIndex);
+
+        var srcPos = srcNode.position;
+        var destPos = destNode.position;
+
+        return Vector3.Distance(srcPos, destPos);
+    }
+}
+
+public class Pathfinder : MonoBehaviour
+{
+    Graph m_graph;
+
+    public List<int> pathToTarget = new List<int>();
+
+    public int startNodeIndex = 0;
+    public int goalNodeIndex = 0;
+
+    void Awake()
+    {
+        m_graph = GetComponent<Graph>();
+    }
+
+    [Button]
+    void FindPath()
+    { 
+        m_graph = GetComponent<Graph>();
+        pathToTarget.Clear();
+
+        var startNode = m_graph.GetNode(startNodeIndex);
+        var goalNode = m_graph.GetNode(goalNodeIndex);
+
+        IHeuristic<SparseGraph<NavGraphNode, GraphEdge>> Heuristic = new UnityDistanceHeuristic();
+
+        var search = new Search_AStar<NavGraphNode, GraphEdge>(m_graph.m_sparseGraph, Heuristic, startNode.NodeIndex, goalNode.NodeIndex);
+
+        if (search.Search())
+        {
+            pathToTarget.AddRange(search.GetPathToTarget());
+
+            foreach (var idx in pathToTarget)
+            {
+                var node = m_graph.m_sparseGraph.GetNode(idx);
+                node.nodeView.ColorNode(Color.green);
+            }
+        }
+    }
+}
+
+/*
 public class Pathfinder : MonoBehaviour
 {
     public TerrainCosts terrainCosts;
@@ -337,3 +394,4 @@ public class Pathfinder : MonoBehaviour
         return path;
     }
 }
+*/

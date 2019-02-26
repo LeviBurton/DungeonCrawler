@@ -13,7 +13,8 @@ public enum NodeType
     HeavyTerrain = 4,
     Water = 5,
     Lava = 6,
-    Connector = 7
+    Connector = 7,
+    Portal = 8
 }
 
 public class Node : IComparable<Node>

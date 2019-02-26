@@ -9,6 +9,11 @@ namespace Burton.Lib.Graph
     public class NavGraphNode : GraphNode
     {
         public Vector3 position;
+        public NodeView nodeView;
+        public NodeType nodeType;
+        public int xIndex;
+        public int yIndex;
+
         public float X;
         public float Y;
         public float Z;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Burton.Lib.Graph;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,8 @@ using UnityEngine;
 [Serializable]
 public class Graph : MonoBehaviour
 {
-    public Node[,] nodes;
+    public SparseGraph<NavGraphNode, GraphEdge> m_sparseGraph;
+    public List<NavGraphNode> Nodes { get { return m_sparseGraph.Nodes; } }
 
     public List<Node> m_nodeList = new List<Node>();
 
@@ -30,52 +32,53 @@ public class Graph : MonoBehaviour
         new Vector2(-1f, 1f)
     };
 
-    public void Init(int[,] mapData)
+    public void Init(int width, int height)
     {
-        m_mapData = mapData;
-        m_width = mapData.GetLength(0);
-        m_height = mapData.GetLength(1);
+        m_sparseGraph = new SparseGraph<NavGraphNode, GraphEdge>(true);
+        m_width = width;
+        m_height = height;
+    }
 
-        nodes = new Node[m_width, m_height];
-        
-        for (int y = 0; y < m_height; y++)
+    public NavGraphNode CreateNode()
+    {
+        return new NavGraphNode(m_sparseGraph.GetNextFreeNodeIndex(), Vector3.zero);
+    }
+
+    public NavGraphNode CreateNode(Vector3 position)
+    {
+        return new NavGraphNode(m_sparseGraph.GetNextFreeNodeIndex(), position);
+    }
+
+    public void CreateEdgesBetweenNodes()
+    {
+        foreach (var node in Nodes)
         {
-            for (int x = 0; x < m_width; x++)
+            foreach (var dir in allDirections)
             {
-                NodeType type = (NodeType)mapData[x, y];
-
-                Node newNode = new Node(x, y, type);
-
-                nodes[x, y] = newNode;
-
-                newNode.position = new Vector3(x, 0, y);
-
-                m_nodeList.Add(newNode);
-
-                if (type == NodeType.Blocked)
-                {
-                    walls.Add(newNode);
-                }
+          
             }
+            Debug.Log(node.NodeIndex);
         }
+    }
 
-        for (int y = 0; y < m_height; y++)
-        {
-            for (int x = 0; x < m_width; x++)
-            {
-                var node = m_nodeList[y * m_width + x];
+    public GraphEdge AddEdge(int fromNodeIndex, int toNodeIndex, float cost)
+    {
+        var edge = new GraphEdge(fromNodeIndex, toNodeIndex, cost);
 
-                if (node.nodeType != NodeType.Blocked)
-                {
-                    node.neighbors = GetNeighbors(x, y);
-                }
+        m_sparseGraph.AddEdge(edge);
 
-                if (nodes[x, y].nodeType != NodeType.Blocked)
-                {
-                    nodes[x, y].neighbors = GetNeighbors(x, y);
-                }
-            }
-        }
+        return edge;
+    }
+
+    public int AddNode(NavGraphNode node)
+    {
+        return m_sparseGraph.AddNode(node);
+    }
+
+  
+    public NavGraphNode GetNode(int nodeIndex)
+    {
+        return m_sparseGraph.GetNode(nodeIndex);
     }
 
     public bool IsWithinBounds(int x, int y)
@@ -83,7 +86,6 @@ public class Graph : MonoBehaviour
         return (x >= 0 && x < m_width && y >= 0 && y < m_height);
     }
 
-    // calculates edges between neighboring nodes.
     List<Node> GetNeighbors(int x, int y, Node[,] nodeArray, Vector2[] directions)
     {
         List<Node> neighborNodes = new List<Node>();
@@ -93,7 +95,6 @@ public class Graph : MonoBehaviour
             int newX = x + (int)dir.x;
             int newY = y + (int)dir.y;
 
-            
             bool isValidNode =
                 IsWithinBounds(newX, newY) &&
                 nodeArray[newX, newY] != null &&
@@ -108,35 +109,49 @@ public class Graph : MonoBehaviour
         return neighborNodes;
     }
 
-    List<Node> GetNeighbors(int x, int y)
+    public void AddAllNeighborsToGridNode(int row, int col, int width, int height)
     {
-        return GetNeighbors(x, y, nodes, allDirections);
+        for (int i = -1; i < 2; ++i)
+        {
+            for (int j = -1; j < 2; ++j)
+            {
+                int nodeX = (row + j);
+                int nodeY = (col + i);
+
+                if ((i == 0) && (j == 0))
+                    continue;
+
+                if (IsWithinBounds(nodeX, nodeY))
+                {
+                    int nodeIdx = col * width + row;
+
+                    var node = m_sparseGraph.GetNode(nodeIdx);
+
+                    if (node == null || node.NodeIndex == (int)ENodeType.InvalidNodeIndex)
+                        continue;
+
+                    var neighborNode = m_sparseGraph.GetNode(nodeY * width + nodeX);
+
+                    if (neighborNode == null || neighborNode.NodeIndex == (int)ENodeType.InvalidNodeIndex || neighborNode.nodeType == NodeType.Blocked)
+                        continue;
+
+                    var pos = new Vector3(node.position.x, node.position.y, node.position.z);
+                    var neighborPos = new Vector3(neighborNode.position.x, neighborNode.position.y, neighborNode.position.z);
+
+                    double distance = Vector3.Distance(pos, neighborPos);
+                    var newEdge = new GraphEdge(node.NodeIndex, neighborNode.NodeIndex, distance);
+
+                    m_sparseGraph.AddEdge(newEdge);
+
+                    if (!m_sparseGraph.IsDigraph())
+                    {
+                        UnityEdge Edge = new UnityEdge(neighborNode.NodeIndex, node.NodeIndex, distance);
+                        m_sparseGraph.AddEdge(Edge);
+                    }
+                }
+
+            }
+        }
     }
 
-    public float GetNodeDistance(Node source, Node target)
-    {
-        int dx = Mathf.Abs(source.xIndex - target.xIndex);
-        int dy = Mathf.Abs(source.yIndex - target.yIndex);
-
-        // the min of the deltas is the diagonal steps
-        int min = Mathf.Min(dx, dy);
-
-        // the max of the deltas is used to calculate the straight steps,
-        // which is just max - min 
-        int max = Mathf.Max(dx, dy);
-
-        int diagonalSteps = min;
-        int straightSteps = max - min;
-
-        // diagonal steps cost 1.4, straight steps cost 1.
-        return 1.4f * diagonalSteps + straightSteps;
-        //return diagonalSteps + straightSteps;
-    }
-
-    public int GetManhattanDistance(Node source, Node target)
-    {
-        int dx = Mathf.Abs(source.xIndex - target.xIndex);
-        int dy = Mathf.Abs(source.yIndex - target.yIndex);
-        return dx + dy;
-    }
 }

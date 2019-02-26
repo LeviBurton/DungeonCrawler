@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 122377387223562615}
   - component: {fileID: 122377387223562612}
-  - component: {fileID: 122377387223562613}
   - component: {fileID: 122377387223562618}
   - component: {fileID: 122377387223562614}
   m_Layer: 0
@@ -193,19 +192,6 @@ MonoBehaviour:
   goalX: 4
   goalY: 3
   timeStep: 0.1
-  m_pathFinder: {fileID: 0}
---- !u!114 &122377387223562613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122377387223562616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8967e15179a345a41bef0b0709b7e0b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &122377387223562618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +577,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 3
   yIndex: 2
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &801239185901416173
@@ -719,6 +706,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 1
   yIndex: 4
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &1053454808434448974
@@ -770,6 +758,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 2
   yIndex: 2
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &1907971433420987482
@@ -821,6 +810,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 0
   yIndex: 2
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &1981934807302343283
@@ -872,6 +862,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 4
   yIndex: 1
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 1
 --- !u!1 &2107005852962519047
@@ -923,6 +914,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 3
   yIndex: 1
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 1
 --- !u!1 &2339149015138240936
@@ -1128,6 +1120,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 1
   yIndex: 3
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &3381044172492308902
@@ -1256,6 +1249,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 4
   yIndex: 4
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 1
 --- !u!1 &3681933040549206907
@@ -1384,6 +1378,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 4
   yIndex: 2
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 7
 --- !u!1 &3712323850521281686
@@ -2128,6 +2123,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 2
   yIndex: 1
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &5893456970133336583
@@ -2179,6 +2175,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 3
   yIndex: 4
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &5939633777822431034
@@ -2230,6 +2227,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 3
   yIndex: 3
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &5963509705203637396
@@ -2358,6 +2356,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 4
   yIndex: 0
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 1
 --- !u!1 &6172008135480732582
@@ -2486,6 +2485,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 4
   yIndex: 3
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 7
 --- !u!1 &6980664228156675856
@@ -2537,6 +2537,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 1
   yIndex: 0
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 7
 --- !u!1 &7120080023589841289
@@ -2665,6 +2666,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 0
   yIndex: 3
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &7301996605744698569
@@ -2793,6 +2795,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 1
   yIndex: 2
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &7365630699251294525
@@ -2921,6 +2924,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 2
   yIndex: 3
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &7762086762824853110
@@ -2972,6 +2976,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 0
   yIndex: 0
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 1
 --- !u!1 &7912279520649582476
@@ -3100,6 +3105,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 1
   yIndex: 1
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &8096745929507741862
@@ -3228,6 +3234,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 2
   yIndex: 0
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 7
 --- !u!1 &8251012099350418205
@@ -3279,6 +3286,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 0
   yIndex: 1
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &8376397681681856702
@@ -3407,6 +3415,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 3
   yIndex: 0
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 1
 --- !u!1 &8821251181399548984
@@ -3458,6 +3467,7 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 2
   yIndex: 4
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
 --- !u!1 &8958612474327798848
@@ -3509,5 +3519,6 @@ MonoBehaviour:
   tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   xIndex: 0
   yIndex: 4
+  nodeIndex: 0
   borderSize: 0.5
   nodeType: 0

@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        RebuildMasterGraph();
-        TestQuickGraph();
+        //RebuildMasterGraph();
+        //TestQuickGraph();
     }
 
     void TestQuickGraph()
@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        masterGraph.Init(tiledata);
         masterGraphView.RebuildNodeViews(masterGraph, "AllTiles");
         masterGraphView.Init(masterGraph);
     }

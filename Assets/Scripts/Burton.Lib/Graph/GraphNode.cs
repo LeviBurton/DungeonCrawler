@@ -5,11 +5,7 @@ using System.Text;
 
 namespace Burton.Lib.Graph
 { 
-    public enum NodeType
-    {
-        InvalidNodeIndex = -1
-    }
-
+  
     [Serializable]
     public class GraphNode
     {
@@ -20,7 +16,7 @@ namespace Burton.Lib.Graph
             set { _NodeIndex = value; }
         }
 
-        public GraphNode() { NodeIndex = (int)NodeType.InvalidNodeIndex; }
+        public GraphNode() { NodeIndex = (int)ENodeType.InvalidNodeIndex; }
         public GraphNode(int Index) { NodeIndex = Index; }
     }
 }

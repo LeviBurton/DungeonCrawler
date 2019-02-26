@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using Burton.Lib.Graph;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,14 @@ public class NodeView : MonoBehaviour
     public GameObject arrow;
 
     // TODO: this doesn't quite work.  most of the time it is null.
-    Node m_node;
+    NavGraphNode m_node;
     public TileColors tileColors;
 
     Vector2 m_coordinate;
     public Vector2 Coordinate { get { return Utility.Vector2Round(m_coordinate); } }
     public int xIndex;
     public int yIndex;
+    public int nodeIndex;
 
     [Range(0, 0.5f)]
     public float borderSize = 0.15f;    // TODO: not currently used.
@@ -29,10 +31,6 @@ public class NodeView : MonoBehaviour
     public NodeType nodeType;
     void NodeTypeChanged()
     {
-        if (m_node == null)
-            return;
-
-        m_node.nodeType = nodeType;
         nodeColor = tileColors.GetNodeTypeColor(nodeType);
     }
 
@@ -41,7 +39,7 @@ public class NodeView : MonoBehaviour
         ownerGraph = this.GetComponentInParent<GraphView>();
     }
 
-    public void SetFromNode(Node node)
+    public void SetFromNode(NavGraphNode node)
     {
         var parent = this.GetComponentInParent<GraphView>();
 
@@ -57,7 +55,7 @@ public class NodeView : MonoBehaviour
         xIndex = node.xIndex;
         yIndex = node.yIndex;
 
-        EnableObject(arrow, false);
+        EnableObject(arrow, true);
     }
 
     public void ColorNode(Color color)
@@ -73,29 +71,27 @@ public class NodeView : MonoBehaviour
         }
     }
 
-    public void ShowArrow(Color color)
-    {
-        if (m_node != null && arrow != null && m_node.previous != null)
-        {
-            EnableObject(arrow, true);
-            Vector3 dirToPRevious = (m_node.previous.position - m_node.position).normalized;
-            arrow.transform.rotation = Quaternion.LookRotation(dirToPRevious);
-            Renderer arrowRenderer = arrow.GetComponent<Renderer>();
+    //public void ShowArrow(Color color)
+    //{
+    //    if (m_node != null && arrow != null && m_node.previous != null)
+    //    {
+    //        EnableObject(arrow, true);
+    //        Vector3 dirToPRevious = (m_node.previous.position - m_node.position).normalized;
+    //        arrow.transform.rotation = Quaternion.LookRotation(dirToPRevious);
+    //        Renderer arrowRenderer = arrow.GetComponent<Renderer>();
 
-            if (arrowRenderer != null)
-            {
-                arrowRenderer.material.color = color;
-            }
-        }
-    }
+    //        if (arrowRenderer != null)
+    //        {
+    //            arrowRenderer.material.color = color;
+    //        }
+    //    }
+    //}
 
     void OnDrawGizmos()
     {
-        var parent = this.GetComponentInParent<GraphView>();
-
         if (nodeColor == emptyColor)
         {
-            Gizmos.color = parent.m_tileColors.GetNodeTypeColor(nodeType);
+            Gizmos.color = tileColors.GetNodeTypeColor(nodeType);
         }
         else
         {

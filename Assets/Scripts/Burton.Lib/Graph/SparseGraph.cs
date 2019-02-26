@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Burton.Lib.Graph
 {
@@ -11,6 +12,7 @@ namespace Burton.Lib.Graph
     {
         public SparseGraph()
         {
+          //  Edges.Add(new List<TEdge>());
         }
 
         public List<TNode> Nodes = new List<TNode>();
@@ -41,8 +43,19 @@ namespace Burton.Lib.Graph
                 return null;
             }
 
-            TNode Node = Nodes[NodeIndex];
-            return Node;
+            TNode node = null;
+
+            try
+            {
+                node = Nodes[NodeIndex];
+            }
+            catch (Exception ex)
+            {
+                Debug.LogErrorFormat("GetNode() {0} {1}", NodeIndex, ex.ToString());
+                
+            }
+
+            return node;
         }
 
         /// <summary>
@@ -112,7 +125,11 @@ namespace Burton.Lib.Graph
 
                 Nodes.Add(Node);
 
-                return NextNodeIndex++;
+                int nextNode = NextNodeIndex++;
+
+               Edges.Insert(nextNode, new List<TEdge>());
+
+                return nextNode;
             }
         }
 
@@ -158,9 +175,9 @@ namespace Burton.Lib.Graph
                     Edges[Edge.FromNodeIndex].Add(Edge);
                 }
             }
-            catch (ArgumentOutOfRangeException outOfRangeException)
+            catch (Exception outOfRangeException)
             {
-                
+                Debug.LogFormat(outOfRangeException.Message);
             }
         }
 

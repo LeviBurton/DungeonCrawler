@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: New Tile Colors
   m_EditorClassIdentifier: 
   openColor: {r: 1, g: 1, b: 1, a: 1}
-  blockColor: {r: 0, g: 0, b: 0, a: 0.23921569}
+  blockColor: {r: 0, g: 0, b: 0, a: 1}
   lightTerrainColor: {r: 0.9339623, g: 0.9143978, b: 0.72690463, a: 1}
   mediumTerrainColor: {r: 0.6509434, g: 0.6509434, b: 0.26713246, a: 1}
   heavyTerrainColor: {r: 0.745283, g: 0.4769924, b: 0.2285066, a: 1}
-  waterColor: {r: 0.46662515, g: 0.46662515, b: 0.9245283, a: 1}
+  waterColor: {r: 0.41037738, g: 0.41037738, b: 1, a: 1}
   lavaColor: {r: 1, g: 0.25943398, b: 0.41483423, a: 1}
-  connectorColor: {r: 0.280701, g: 0.9339623, b: 0, a: 1}
+  connectorColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+  portalColor: {r: 0, g: 1, b: 0, a: 1}
