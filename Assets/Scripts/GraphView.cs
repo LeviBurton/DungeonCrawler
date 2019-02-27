@@ -11,13 +11,41 @@ public class GraphView : MonoBehaviour
     public NodeView[,] m_nodeViews;
     public Graph m_graph;
     public TileColors m_tileColors;
+    public TerrainCosts m_terrainCosts;
+
     public List<NodeView> nodeViews = new List<NodeView>();    // TODO: consider moving this to GraphView.
 
     string tileId;
 
-    private void Awake()
+    void Awake()
     {
         m_graph = GetComponent<Graph>();
+    }
+
+    public void Init(Graph graph)
+    {
+        m_graph = graph;
+
+        foreach (var view in m_nodeViews)
+        {
+            Color originalColor = m_tileColors.GetNodeTypeColor(view.nodeType);
+            view.tileColors = m_tileColors;
+            view.ColorNode(originalColor);
+        }
+    }
+
+    public void Init(Graph graph, NodeView[] nodeViews)
+    {
+        m_graph = graph;
+
+        m_nodeViews = new NodeView[m_graph.width, m_graph.height];
+
+        foreach (var view in nodeViews)
+        {
+            Color originalColor = m_tileColors.GetNodeTypeColor(view.nodeType);
+            view.tileColors = m_tileColors;
+            view.ColorNode(originalColor);
+        }
     }
 
     public NavGraphNode GetNodeAtPosition(Vector3 position)
@@ -32,18 +60,6 @@ public class GraphView : MonoBehaviour
         }
 
         return graphNode;
-    }
-
-    [Button(Name = "Node Color Defaults")]
-    void ResetNodeColors()
-    {
-        m_graph = GetComponent<Graph>();
-
-        foreach (var node in GetComponentsInChildren<NodeView>())
-        {
-            Color originalColor = m_tileColors.GetNodeTypeColor(node.nodeType);
-            node.ColorNode(originalColor);
-        }
     }
 
     public void CreateNodeViews(Graph graph)
@@ -78,7 +94,7 @@ public class GraphView : MonoBehaviour
                 nodeView.tileColors = m_tileColors;
                 nodeViews.Add(nodeView);
                 instance.name = "Node (" + nodeView.xIndex + "," + nodeView.yIndex + ")";
-                instance.transform.position = new Vector3(x + 0.5f,0, y + 0.5f);
+                instance.transform.position = new Vector3(x,0, y);
             }
         }
     }
@@ -94,7 +110,7 @@ public class GraphView : MonoBehaviour
                 
                 if (neighborNode != null && neighborNode.nodeType != NodeType.Blocked)
                 {
-                    m_graph.AddEdge(node.NodeIndex, neighborNode.NodeIndex, 1.0f);
+                    m_graph.AddEdge(node.NodeIndex, neighborNode.NodeIndex, m_terrainCosts.GetCost(neighborNode.nodeType));
                 }
             }
         }
@@ -133,32 +149,6 @@ public class GraphView : MonoBehaviour
                 Color originalColor = m_tileColors.GetNodeTypeColor(n.nodeType);
                 nodeView.ColorNode(originalColor);
             }
-        }
-    }
-
-    public void Init(Graph graph)
-    {
-        m_graph = graph;
-
-        foreach (var view in m_nodeViews)
-        {
-            Color originalColor = m_tileColors.GetNodeTypeColor(view.nodeType);
-            view.tileColors = m_tileColors;
-            view.ColorNode(originalColor);
-        }
-    }
-
-    public void Init(Graph graph, NodeView[] nodeViews)
-    {
-        m_graph = graph;
-
-        m_nodeViews = new NodeView[m_graph.Width, m_graph.Height];
-
-        foreach (var view in nodeViews)
-        {
-            Color originalColor = m_tileColors.GetNodeTypeColor(view.nodeType);
-            view.tileColors = m_tileColors;
-            view.ColorNode(originalColor);
         }
     }
 

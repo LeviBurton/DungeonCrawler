@@ -82,7 +82,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122377386746143911}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
@@ -183,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347d40e75ea8d154f9fc974e749042f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileColors: {fileID: 0}
+  m_terrainCosts: {fileID: 0}
 --- !u!114 &122377387223562614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +201,8 @@ MonoBehaviour:
     type: 3}
   m_graph: {fileID: 0}
   m_tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
+  m_terrainCosts: {fileID: 0}
+  nodeViews: []
 --- !u!1 &1236743928703411271
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +774,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 0ba10cbcc6da9ee4493052740ce1c89d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96acc0f38139f5444ad33731f8d2df6f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ba10cbcc6da9ee4493052740ce1c89d, type: 3}
 --- !u!4 &7892029004198319400 stripped

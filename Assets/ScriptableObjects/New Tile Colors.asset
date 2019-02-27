@@ -20,4 +20,6 @@ MonoBehaviour:
   waterColor: {r: 0.41037738, g: 0.41037738, b: 1, a: 1}
   lavaColor: {r: 1, g: 0.25943398, b: 0.41483423, a: 1}
   connectorColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
-  portalColor: {r: 0, g: 1, b: 0, a: 1}
+  portalColor: {r: 1, g: 1, b: 0, a: 1}
+  entranceColor: {r: 0.33668566, g: 0.735849, b: 0.33668566, a: 1}
+  exitColor: {r: 0.8207547, g: 0.22588842, b: 0.15098791, a: 1}

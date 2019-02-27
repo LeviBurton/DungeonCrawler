@@ -17,6 +17,8 @@ public class TileColors : ScriptableObject
     public Color lavaColor = new Color(1f, 0f, 0f);
     public Color connectorColor = new Color(1f, 1f, 1f);
     public Color portalColor = new Color(0f, 1f, 0f, 1f);
+    public Color entranceColor = new Color(0f, 1f, 0f, 1f);
+    public Color exitColor = new Color(0f, 1f, 0f, 1f);
 
     public  Color GetNodeTypeColor(NodeType nodeType)
     {
@@ -40,7 +42,12 @@ public class TileColors : ScriptableObject
                 return connectorColor;
             case NodeType.Portal:
                 return portalColor;
+            case NodeType.Entrance:
+                return entranceColor;
+            case NodeType.Exit:
+                return exitColor;
             default:
+
                 return openColor;
         }
     }

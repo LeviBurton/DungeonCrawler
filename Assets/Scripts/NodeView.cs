@@ -44,7 +44,7 @@ public class NodeView : MonoBehaviour
         var parent = this.GetComponentInParent<GraphView>();
 
         gameObject.name = "Node (" + node.xIndex + "," + node.yIndex + ")";
-        gameObject.transform.position = new Vector3(node.position.x + 0.5f, node.position.y, node.position.z + 0.5f);
+        gameObject.transform.position = new Vector3(node.position.x , node.position.y, node.position.z);
         gameObject.transform.localScale = new Vector3(1f - borderSize, 1f, 1f - borderSize);
 
         m_node = node;

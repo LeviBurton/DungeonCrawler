@@ -1,35 +1,38 @@
 ﻿using Burton.Lib.Graph;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: this class might be redundant and can mostly be moved into the GraphView class.
 [Serializable]
 public class Graph : MonoBehaviour
 {
     public SparseGraph<NavGraphNode, GraphEdge> m_sparseGraph;
     public List<NavGraphNode> Nodes { get { return m_sparseGraph.Nodes; } }
-
-    public List<Node> m_nodeList = new List<Node>();
-
+    public TileColors tileColors;
+    public TerrainCosts m_terrainCosts;
     public List<Node> walls = new List<Node>();
-    public int Width { get { return m_width; } }
-    public int Height { get { return m_height; } }
-
-    int[,] m_mapData;
+    public int width { get { return m_width; } }
+    public int height { get { return m_height; } }
     int m_width;
     int m_height;
 
     public static readonly Vector2[] allDirections =
     {
         new Vector2(0f, 1f),
-        new Vector2(1f, 1f),
+
         new Vector2(1f, 0f),
-        new Vector2(1f,-1f),
+    
         new Vector2(0f, -1f),
-        new Vector2(-1f, -1f),
+
         new Vector2(-1f, 0f),
-        new Vector2(-1f, 1f)
+        new Vector2(-1f, 1f),
+
+                new Vector2(1f, 1f),
+                new Vector2(1f,-1f),
+                     new Vector2(-1f, -1f)
     };
 
     public void Init(int width, int height)
@@ -37,6 +40,16 @@ public class Graph : MonoBehaviour
         m_sparseGraph = new SparseGraph<NavGraphNode, GraphEdge>(true);
         m_width = width;
         m_height = height;
+    }
+
+    [Button(Name = "Node Color Defaults")]
+    public void ResetNodeColors()
+    {
+        foreach (var node in Nodes)
+        {
+            Color originalColor = tileColors.GetNodeTypeColor(node.nodeType);
+            node.nodeView.ColorNode(originalColor);
+        }
     }
 
     public NavGraphNode CreateNode()
@@ -47,18 +60,6 @@ public class Graph : MonoBehaviour
     public NavGraphNode CreateNode(Vector3 position)
     {
         return new NavGraphNode(m_sparseGraph.GetNextFreeNodeIndex(), position);
-    }
-
-    public void CreateEdgesBetweenNodes()
-    {
-        foreach (var node in Nodes)
-        {
-            foreach (var dir in allDirections)
-            {
-          
-            }
-            Debug.Log(node.NodeIndex);
-        }
     }
 
     public GraphEdge AddEdge(int fromNodeIndex, int toNodeIndex, float cost)
@@ -75,7 +76,6 @@ public class Graph : MonoBehaviour
         return m_sparseGraph.AddNode(node);
     }
 
-  
     public NavGraphNode GetNode(int nodeIndex)
     {
         return m_sparseGraph.GetNode(nodeIndex);
@@ -86,29 +86,8 @@ public class Graph : MonoBehaviour
         return (x >= 0 && x < m_width && y >= 0 && y < m_height);
     }
 
-    List<Node> GetNeighbors(int x, int y, Node[,] nodeArray, Vector2[] directions)
-    {
-        List<Node> neighborNodes = new List<Node>();
-
-        foreach (Vector2 dir in directions)
-        {
-            int newX = x + (int)dir.x;
-            int newY = y + (int)dir.y;
-
-            bool isValidNode =
-                IsWithinBounds(newX, newY) &&
-                nodeArray[newX, newY] != null &&
-                nodeArray[newX, newY].nodeType != NodeType.Blocked;
-
-            if (isValidNode)
-            {
-                neighborNodes.Add(nodeArray[newX, newY]);
-            }
-        }
-
-        return neighborNodes;
-    }
-
+    // Only used in the prefabs when generating the local grid -- the prefab uses a grid layout, 
+    // so this works there just fine.
     public void AddAllNeighborsToGridNode(int row, int col, int width, int height)
     {
         for (int i = -1; i < 2; ++i)

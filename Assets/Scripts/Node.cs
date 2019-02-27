@@ -14,7 +14,9 @@ public enum NodeType
     Water = 5,
     Lava = 6,
     Connector = 7,
-    Portal = 8
+    Portal = 8,
+    Entrance = 9,
+    Exit = 10
 }
 
 public class Node : IComparable<Node>
