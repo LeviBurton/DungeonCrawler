@@ -19,20 +19,17 @@ public class Graph : MonoBehaviour
     int m_width;
     int m_height;
 
+    // 8 directions we can move.
     public static readonly Vector2[] allDirections =
     {
         new Vector2(0f, 1f),
-
         new Vector2(1f, 0f),
-    
         new Vector2(0f, -1f),
-
         new Vector2(-1f, 0f),
         new Vector2(-1f, 1f),
-
-                new Vector2(1f, 1f),
-                new Vector2(1f,-1f),
-                     new Vector2(-1f, -1f)
+        new Vector2(1f, 1f),
+        new Vector2(1f,-1f),
+        new Vector2(-1f, -1f)
     };
 
     public void Init(int width, int height)

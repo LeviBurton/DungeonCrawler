@@ -9,7 +9,6 @@ public class UnityDistanceHeuristic : IHeuristic<SparseGraph<NavGraphNode, Graph
 {
     public double Calculate(SparseGraph<NavGraphNode, GraphEdge> graph, int srcNodeIndex, int destNodeIndex)
     {
-
         var srcNode = graph.GetNode(srcNodeIndex);
         var destNode = graph.GetNode(destNodeIndex);
 
@@ -37,6 +36,10 @@ public class UnityDistanceHeuristic : IHeuristic<SparseGraph<NavGraphNode, Graph
 public class Pathfinder : MonoBehaviour
 {
     Graph m_graph;
+    GraphView m_graphView;
+    GameManager gameManager;
+
+    public Color pathColor;
 
     public List<int> pathToTarget = new List<int>();
     public int startNodeIndex = 0;
@@ -45,6 +48,11 @@ public class Pathfinder : MonoBehaviour
     public void SetGraph(Graph graph)
     {
         m_graph = graph;
+    }
+
+    public void SetGraphView(GraphView graphView)
+    {
+        m_graphView = graphView;
     }
 
     [Button]
@@ -72,13 +80,29 @@ public class Pathfinder : MonoBehaviour
 
                 if (node != null)
                 {
-                    node.nodeView.ColorNode(Color.green);
-                }
-                else
-                {
-
+                    node.nodeView.ColorNode(pathColor);
                 }
             }
+        }
+        var playerMover = FindObjectOfType<PlayerMover>();
+        playerMover.SetGraphView(m_graphView);
+
+        MoveAlongPath();
+    }
+
+    public void MoveAlongPath()
+    {
+        StartCoroutine(MoveAlongPathRoutine());
+    }
+
+    IEnumerator MoveAlongPathRoutine()
+    {
+        var playerMover = FindObjectOfType<PlayerMover>();
+
+        foreach (var node in pathToTarget)
+        {
+            playerMover.Move(m_graph.GetNode(node).position, 0f);
+            yield return new WaitForSeconds(2.0f);
         }
     }
 }

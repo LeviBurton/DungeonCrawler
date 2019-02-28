@@ -14,10 +14,14 @@ public class NodeView : MonoBehaviour
     NavGraphNode m_node;
     public TileColors tileColors;
 
+    // TODO: we aren't using this anymore -- consider removing it.
     Vector2 m_coordinate;
     public Vector2 Coordinate { get { return Utility.Vector2Round(m_coordinate); } }
+
+    // Only used in the prefab editor
     public int xIndex;
     public int yIndex;
+
     public int nodeIndex;
 
     [Range(0, 0.5f)]
@@ -43,7 +47,7 @@ public class NodeView : MonoBehaviour
     {
         var parent = this.GetComponentInParent<GraphView>();
 
-        gameObject.name = "Node (" + node.xIndex + "," + node.yIndex + ")";
+        gameObject.name = "Node (" + nodeIndex + ")";
         gameObject.transform.position = new Vector3(node.position.x , node.position.y, node.position.z);
         gameObject.transform.localScale = new Vector3(1f - borderSize, 1f, 1f - borderSize);
 
@@ -98,8 +102,8 @@ public class NodeView : MonoBehaviour
             Gizmos.color = nodeColor;
         }
 
-        Vector3 drawPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Vector3 drawScale = new Vector3(0.95f, 0.15f, 0.95f);
+        Vector3 drawPos = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+        Vector3 drawScale = new Vector3(0.9f, 0.1f, 0.9f);
 
         Gizmos.DrawCube(drawPos, drawScale);
     }

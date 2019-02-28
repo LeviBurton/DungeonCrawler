@@ -178,11 +178,6 @@ MonoBehaviour:
   tileId: Core_16
   width: 4
   height: 4
-  startX: 1
-  startY: 0
-  goalX: 4
-  goalY: 3
-  timeStep: 0.1
 --- !u!114 &122377387223562618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2353,7 +2348,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: ef2f8aa15dc3fe648bac98bc7cd2e2d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 96acc0f38139f5444ad33731f8d2df6f, type: 2}
+      objectReference: {fileID: 2100000, guid: 393962a14fe1005408394aa953502ed7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef2f8aa15dc3fe648bac98bc7cd2e2d2, type: 3}
 --- !u!4 &1127119210681583692 stripped

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1973121580602621500}
   - component: {fileID: 1973121580602621501}
   - component: {fileID: 1973121580602621502}
+  - component: {fileID: 9129500274037517983}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -45,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3138050b5bad534b821a2daca215ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathToTarget: 
+  startIndex: 0
+  goalIndex: 0
 --- !u!114 &1973121580602621502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,20 +61,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5148914e97bb5745a61bc25c6ad31a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainCosts: {fileID: 0}
-  startColor: {r: 0, g: 1, b: 0, a: 1}
-  goalColor: {r: 1, g: 0, b: 0, a: 1}
-  frontierColor: {r: 1, g: 0, b: 1, a: 1}
-  exploredColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   pathColor: {r: 0, g: 1, b: 1, a: 1}
-  arrowColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
-  highlightColor: {r: 1, g: 1, b: 0.5, a: 1}
-  showIterations: 1
-  showColors: 1
-  showArrows: 1
-  exitOnGoal: 1
-  isComplete: 0
-  mode: 3
+  pathToTarget: 
+  startNodeIndex: 0
+  goalNodeIndex: 0
+--- !u!114 &9129500274037517983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973121580602621503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f0eda75403e7442b71880add005969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1973121581382263796
 PrefabInstance:
   m_ObjectHideFlags: 0

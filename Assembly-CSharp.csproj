@@ -89,16 +89,20 @@
     <Compile Include="Assets\Scripts\Graph\UnityPathManager.cs" />
     <Compile Include="Assets\Scripts\Graph\UnityPathPlanner.cs" />
     <Compile Include="Assets\Scripts\GraphView.cs" />
+    <Compile Include="Assets\Scripts\Mover.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\NodeView.cs" />
     <Compile Include="Assets\Scripts\Pathfinder.cs" />
+    <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerMover.cs" />
     <Compile Include="Assets\Scripts\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\TerrainCosts.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\TileColors.cs" />
     <Compile Include="Assets\Scripts\TileData.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
+    <Compile Include="Assets\Scripts\Wall.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -119,6 +123,15 @@
     <Reference Include="Cinemachine">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ProGrids">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Unity.ProGrids.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProGrids.Editor">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -136,6 +149,9 @@
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/levib/Documents/Projects/Unity/DungeonCrawler/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

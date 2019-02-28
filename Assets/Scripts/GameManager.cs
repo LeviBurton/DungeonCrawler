@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour
 
     public void RebuildMasterGraph()
     {
-        List<NodeView> nodeViews = new List<NodeView>();
-
         masterGraph.Init(50, 50);
 
         foreach (var tile in allTiles)
@@ -41,6 +39,8 @@ public class GameManager : MonoBehaviour
             foreach (var tileNode in tileGraph.Nodes)
             {
                 var nodeView = tileNode.nodeView;
+                nodeView.tileId = tile.tileId;
+
                 var nodeWorldPos = nodeView.transform.position;
                 var newNode = masterGraph.CreateNode(nodeWorldPos);
 

@@ -10,21 +10,15 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public string tileId;
-
     public int width = 5;
     public int height = 5;
 
-    public int startX = 0;
-    public int startY = 0;
-    public int goalX = 4;
-    public int goalY = 3;
+    public List<Wall> walls = new List<Wall>();
 
-    public float timeStep = 0.1f;
+    //public bool drawGizmos;
 
     Graph m_graph;
     GraphView m_graphView;
- 
-    int[,] m_tileData;
 
     void Awake()
     {
@@ -61,6 +55,9 @@ public class Tile : MonoBehaviour
         }
     }
 
+    // The node views represent our graph (this lets me change them easily in the editor)
+    // so we recreate the underlying graph from the node views.
+    // Think of the node views and graph views as our little graph map editor tools.
     void CreatGraphFromNodeViews()
     {
         var nodeViews = this.GetComponentsInChildren<NodeView>();
@@ -78,12 +75,42 @@ public class Tile : MonoBehaviour
         }
 
         // populate the graph by visiting each node and adding all of its neighbors.
-        // TODO: the AddAllNeighborsToGridNode code is old and ugly -- there is a much better way.
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
                 m_graph.AddAllNeighborsToGridNode(x, y, width, height);
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        foreach (var wall in walls)
+        {
+            DrawWall(wall);
+        }
+    }
+
+
+    public void DrawWall(Wall wall)
+    {
+        Gizmos.color = Color.red;
+
+        for (int i = 0; i < wall.wallPoints.Count; i++)
+        {
+            if (i < wall.wallPoints.Count - 1)
+            {
+                var srcPos = new Vector3(wall.wallPoints[i].position.x,
+                                         wall.wallPoints[i].position.y + 0.25f,
+                                         wall.wallPoints[i].position.z);
+
+                var destPos = new Vector3(wall.wallPoints[i + 1].position.x,
+                                     wall.wallPoints[i + 1].position.y + 0.25f,
+                                     wall.wallPoints[i + 1].position.z);
+
+               
+                Gizmos.DrawLine(srcPos, destPos);
             }
         }
     }
