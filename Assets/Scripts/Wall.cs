@@ -7,5 +7,4 @@ using UnityEngine;
 public class Wall 
 {
     public List<Transform> wallPoints = new List<Transform>();
-
 }

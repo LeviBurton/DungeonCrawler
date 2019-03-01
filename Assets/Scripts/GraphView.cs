@@ -1,5 +1,6 @@
 ﻿using Burton.Lib.Graph;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,13 @@ public class GraphView : MonoBehaviour
     public Graph m_graph;
     public TileColors m_tileColors;
     public TerrainCosts m_terrainCosts;
+    public Color edgeColor = Color.white;
 
     public List<NodeView> nodeViews = new List<NodeView>();    // TODO: consider moving this to GraphView.
+
+    public List<Wall> walls = new List<Wall>();
+
+    public bool drawGizmo = true;
 
     string tileId;
 
@@ -52,7 +58,7 @@ public class GraphView : MonoBehaviour
     {
         NavGraphNode graphNode = null;
 
-        var nodeView = nodeViews.SingleOrDefault(x => x.transform.position == position);
+        var nodeView = nodeViews.SingleOrDefault(x => Vector3.Distance(x.transform.position, position) <= 0.01f);
 
         if (nodeView != null)
         {
@@ -62,13 +68,18 @@ public class GraphView : MonoBehaviour
         return graphNode;
     }
 
+    public void AddWall(Wall wall)
+    {
+        walls.Add(wall);
+    }
+
     public void CreateNodeViews(Graph graph)
     {
         var gameObject = new GameObject("Master Graph Nodes");
 
         foreach (var node in graph.Nodes)
         {
-            var instance = Instantiate(nodeViewPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
+            var instance = Instantiate(nodeViewPrefab, Vector3.zero, Quaternion.identity, transform);
             var nodeView = instance.GetComponent<NodeView>();
 
             nodeView.nodeType = node.nodeType;
@@ -94,7 +105,7 @@ public class GraphView : MonoBehaviour
                 nodeView.tileColors = m_tileColors;
                 nodeViews.Add(nodeView);
                 instance.name = "Node (" + nodeView.xIndex + "," + nodeView.yIndex + ")";
-                instance.transform.position = new Vector3(x,0, y);
+                instance.transform.position = new Vector3(x + 0.5f,0, y + 0.5f);
             }
         }
     }
@@ -105,12 +116,30 @@ public class GraphView : MonoBehaviour
         {
             foreach (var dir in Graph.allDirections)
             {
-                var nextPos = new Vector3(node.position.x + dir.x, 0f, node.position.z + dir.y);
+                var nextPos = new Vector3(node.position.x + dir.x,  0f, node.position.z + dir.y);
                 var neighborNode = GetNodeAtPosition(nextPos);
-                
-                if (neighborNode != null && neighborNode.nodeType != NodeType.Blocked)
+      
+                if (neighborNode != null && 
+                    neighborNode.nodeType != NodeType.Blocked && 
+                    node.nodeType != NodeType.Blocked)
                 {
-                    m_graph.AddEdge(node.NodeIndex, neighborNode.NodeIndex, m_terrainCosts.GetCost(neighborNode.nodeType));
+                    // TODO: this blocked by wall stuff works fine, but i was tired and its quite ugly.
+                    bool isBlockedByWall = false;
+
+                    foreach (var wall in walls)
+                    {
+                        var blocked = Math3d.AreLineSegmentsCrossing(node.position, neighborNode.position, wall.wallPoints[0].position, wall.wallPoints[1].position);
+                        if (blocked)
+                        {
+                            isBlockedByWall = true;
+                            break;
+                        }
+                    }
+
+                    if (!isBlockedByWall)
+                    {
+                        m_graph.AddEdge(node.NodeIndex, neighborNode.NodeIndex, m_terrainCosts.GetCost(neighborNode.nodeType));
+                    }
                 }
             }
         }
@@ -192,6 +221,32 @@ public class GraphView : MonoBehaviour
         foreach (Node n in nodes)
         {
             ShowNodeArrows(n, color);
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!drawGizmo)
+            return;
+
+        Gizmos.color = edgeColor;
+        if (m_graph == null)
+        {
+            return;
+        }
+
+        foreach (var edgeList in m_graph.Edges)
+        {
+            foreach (var edge in edgeList)
+            {
+                var fromNode = m_graph.GetNode(edge.FromNodeIndex);
+                var toNode = m_graph.GetNode(edge.ToNodeIndex);
+
+                var fromPosition = new Vector3(fromNode.position.x, fromNode.position.y + 0.5f, fromNode.position.z);
+                var toPosition = new Vector3(toNode.position.x, toNode.position.y + 0.5f, toNode.position.z);
+
+                Gizmos.DrawLine(fromPosition, toPosition);
+            }
         }
     }
 }

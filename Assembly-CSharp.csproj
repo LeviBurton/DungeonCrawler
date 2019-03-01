@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CinemachinePostProcessingV2\CinemachinePostProcessing.cs" />
+    <Compile Include="Assets\Scripts\Board.cs" />
     <Compile Include="Assets\Scripts\Burton.Lib\Graph\AdjacencyList.cs" />
     <Compile Include="Assets\Scripts\Burton.Lib\Graph\Graph_SearchTimeSliced.cs" />
     <Compile Include="Assets\Scripts\Burton.Lib\Graph\GraphEdge.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Scripts\Graph\UnityPathManager.cs" />
     <Compile Include="Assets\Scripts\Graph\UnityPathPlanner.cs" />
     <Compile Include="Assets\Scripts\GraphView.cs" />
+    <Compile Include="Assets\Scripts\Math3D.cs" />
     <Compile Include="Assets\Scripts\Mover.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\NodeView.cs" />

@@ -11,6 +11,8 @@ public class Graph : MonoBehaviour
 {
     public SparseGraph<NavGraphNode, GraphEdge> m_sparseGraph;
     public List<NavGraphNode> Nodes { get { return m_sparseGraph.Nodes; } }
+
+    public List<List<GraphEdge>> Edges { get { return m_sparseGraph.Edges; } }
     public TileColors tileColors;
     public TerrainCosts m_terrainCosts;
     public List<Node> walls = new List<Node>();
@@ -22,19 +24,19 @@ public class Graph : MonoBehaviour
     // 8 directions we can move.
     public static readonly Vector2[] allDirections =
     {
-        new Vector2(0f, 1f),
-        new Vector2(1f, 0f),
-        new Vector2(0f, -1f),
-        new Vector2(-1f, 0f),
-        new Vector2(-1f, 1f),
+     new Vector2(0f, 1f),
         new Vector2(1f, 1f),
+        new Vector2(1f, 0f),
         new Vector2(1f,-1f),
-        new Vector2(-1f, -1f)
+        new Vector2(0f, -1f),
+        new Vector2(-1f, -1f),
+        new Vector2(-1f, 0f),
+        new Vector2(-1f, 1f)
     };
 
     public void Init(int width, int height)
     {
-        m_sparseGraph = new SparseGraph<NavGraphNode, GraphEdge>(true);
+        m_sparseGraph = new SparseGraph<NavGraphNode, GraphEdge>(false);
         m_width = width;
         m_height = height;
     }

@@ -111,6 +111,8 @@ public class Tile : MonoBehaviour
 
                
                 Gizmos.DrawLine(srcPos, destPos);
+
+                
             }
         }
     }

@@ -179,6 +179,7 @@ Transform:
   - {fileID: 6144094806481348748}
   - {fileID: 1061537573226276603}
   - {fileID: 843070181682128656}
+  - {fileID: 4938802003013491300}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -207,7 +208,6 @@ MonoBehaviour:
   - wallPoints:
     - {fileID: 667352477555107066}
     - {fileID: 6953261542781018359}
-    - {fileID: 102347590440940504}
   - wallPoints:
     - {fileID: 102347590440940504}
     - {fileID: 948154900770682403}
@@ -217,7 +217,12 @@ MonoBehaviour:
   - wallPoints:
     - {fileID: 6144094806481348748}
     - {fileID: 1061537573226276603}
+  - wallPoints:
     - {fileID: 843070181682128656}
+    - {fileID: 4938802003013491300}
+  - wallPoints:
+    - {fileID: 6953261542781018359}
+    - {fileID: 102347590440940504}
 --- !u!114 &122377387223562618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +280,7 @@ MonoBehaviour:
   - {fileID: 560344918398370278}
   - {fileID: 2764731801064864861}
   - {fileID: 274649259663292605}
+  walls: []
 --- !u!1 &493163193929657761
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,6 +981,36 @@ MonoBehaviour:
   nodeIndex: 0
   borderSize: 0.5
   nodeType: 0
+--- !u!1 &1476057316174565719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4938802003013491300}
+  m_Layer: 0
+  m_Name: GameObject (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4938802003013491300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476057316174565719}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 122377387223562615}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1625550063006384901
 GameObject:
   m_ObjectHideFlags: 0

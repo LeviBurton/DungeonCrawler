@@ -29,7 +29,7 @@ public class UnityDistanceHeuristic : IHeuristic<SparseGraph<NavGraphNode, Graph
         int straightSteps = max - min;
 
         // diagonal steps cost 1.4, straight steps cost 1.
-        return 1f * diagonalSteps + straightSteps;
+        return 1.4f * diagonalSteps + straightSteps;
     }
 }
 
@@ -84,6 +84,7 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
+
         var playerMover = FindObjectOfType<PlayerMover>();
         playerMover.SetGraphView(m_graphView);
 
