@@ -16,12 +16,15 @@ public class Board : MonoBehaviour
         tiles = FindObjectsOfType<Tile>().ToList();
         graph = GetComponent<Graph>();
         graphView = GetComponent<GraphView>();
+     
     }
 
     void Start()
     {
         RebuildGraph();
+
     }
+
 
     public void RebuildGraph()
     {
@@ -56,15 +59,11 @@ public class Board : MonoBehaviour
         }
 
         graphView.CreateNodeViews(graph);
-        // TODO: graphView.AddWalls();
         graphView.CreateEdgesBetweenNodes();
 
         foreach (var node in graph.Nodes)
         {
             node.nodeView = graphView.nodeViews.Single(x => x.nodeIndex == node.NodeIndex);
         }
-
-        player.SetWorldGraph(graph);
     }
-
 }

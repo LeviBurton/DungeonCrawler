@@ -14,6 +14,7 @@ public class GraphView : MonoBehaviour
     public TileColors m_tileColors;
     public TerrainCosts m_terrainCosts;
     public Color edgeColor = Color.white;
+    public float nodesAndEdgesGizmoHeight = 0.15f;
 
     public List<NodeView> nodeViews = new List<NodeView>();    // TODO: consider moving this to GraphView.
 
@@ -229,11 +230,19 @@ public class GraphView : MonoBehaviour
         if (!drawGizmo)
             return;
 
-        Gizmos.color = edgeColor;
         if (m_graph == null)
         {
             return;
         }
+
+        Gizmos.color = edgeColor;
+
+        foreach (var node in m_graph.Nodes)
+        { 
+            var position = new Vector3(node.position.x, node.position.y + nodesAndEdgesGizmoHeight, node.position.z);
+            Gizmos.DrawSphere(position, 0.1f);
+        }
+
 
         foreach (var edgeList in m_graph.Edges)
         {
@@ -242,8 +251,8 @@ public class GraphView : MonoBehaviour
                 var fromNode = m_graph.GetNode(edge.FromNodeIndex);
                 var toNode = m_graph.GetNode(edge.ToNodeIndex);
 
-                var fromPosition = new Vector3(fromNode.position.x, fromNode.position.y + 0.5f, fromNode.position.z);
-                var toPosition = new Vector3(toNode.position.x, toNode.position.y + 0.5f, toNode.position.z);
+                var fromPosition = new Vector3(fromNode.position.x, fromNode.position.y + nodesAndEdgesGizmoHeight, fromNode.position.z);
+                var toPosition = new Vector3(toNode.position.x, toNode.position.y + nodesAndEdgesGizmoHeight, toNode.position.z);
 
                 Gizmos.DrawLine(fromPosition, toPosition);
             }

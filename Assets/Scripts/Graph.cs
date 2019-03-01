@@ -77,6 +77,7 @@ public class Graph : MonoBehaviour
 
     public NavGraphNode GetNode(int nodeIndex)
     {
+
         return m_sparseGraph.GetNode(nodeIndex);
     }
 

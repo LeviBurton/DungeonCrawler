@@ -8,12 +8,9 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     Board board;
-    Graph m_graph;
-    GraphView m_graphView;
     public GameManager gameManager;
 
     Pathfinder m_pathFinder;
-    List<Tile> m_allTiles;
     public List<int> pathToTarget = new List<int>();
 
     public int startIndex;
@@ -27,15 +24,18 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        m_pathFinder.SetGraph(m_graph);
+        m_pathFinder.SetGraph(board.graph);
         m_pathFinder.SetGraphView(board.graphView);
-        FindPath();
+
+        StartCoroutine(WaitRoutine());
+
     }
 
-    public void SetWorldGraph(Graph worldGraph)
+    IEnumerator WaitRoutine()
     {
-        m_graph = worldGraph;
-        m_pathFinder.SetGraph(board.graph);
+        yield return new WaitForSeconds(3f);
+
+        FindPath();
     }
 
     [Button]
@@ -43,9 +43,10 @@ public class PlayerManager : MonoBehaviour
     {
         m_pathFinder.SetGraph(board.graph);
         m_pathFinder.SetGraphView(board.graphView);
-        if (m_graph != null)
+
+        if (board.graph != null)
         {
-            m_graph.ResetNodeColors();
+            board.graph.ResetNodeColors();
         }
 
         m_pathFinder.FindPath(startIndex, goalIndex);
