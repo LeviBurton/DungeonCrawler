@@ -21,6 +21,10 @@ public class GraphView : MonoBehaviour
     public List<Wall> walls = new List<Wall>();
 
     public bool drawGizmo = true;
+    // gizmos stuff
+    public float yOffset = 5;
+    public Color textColor = Color.cyan;
+    public int fontSize = 16;
 
     string tileId;
 
@@ -59,7 +63,7 @@ public class GraphView : MonoBehaviour
     {
         NavGraphNode graphNode = null;
 
-        var nodeView = nodeViews.SingleOrDefault(x => Vector3.Distance(x.transform.position, position) <= 0.01f);
+        var nodeView = nodeViews.SingleOrDefault(x => Vector3.Distance(x.transform.position, position) <= 0.001f);
 
         if (nodeView != null)
         {
@@ -241,6 +245,8 @@ public class GraphView : MonoBehaviour
         { 
             var position = new Vector3(node.position.x, node.position.y + nodesAndEdgesGizmoHeight, node.position.z);
             Gizmos.DrawSphere(position, 0.1f);
+
+            GizmosUtility.DrawText(GUI.skin, node.NodeIndex.ToString(), position, textColor, fontSize, yOffset);
         }
 
 
@@ -257,5 +263,9 @@ public class GraphView : MonoBehaviour
                 Gizmos.DrawLine(fromPosition, toPosition);
             }
         }
+
+
+   
+
     }
 }

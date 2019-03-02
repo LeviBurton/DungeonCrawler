@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d6341a180807b41b028ebc8ca0fe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileId: Core_16
+  tileId: Tile_Core_16
   width: 4
   height: 4
   walls:
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   m_terrainCosts: {fileID: 0}
   edgeColor: {r: 1, g: 1, b: 1, a: 1}
+  nodesAndEdgesGizmoHeight: 0.15
   nodeViews: []
   walls: []
   drawGizmo: 1

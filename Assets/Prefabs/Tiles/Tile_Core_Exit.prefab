@@ -240,9 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d6341a180807b41b028ebc8ca0fe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileId: Core_3
+  tileId: Tile_Core_Exit
   width: 2
   height: 2
+  walls: []
 --- !u!114 &4590988280800374607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,11 +275,15 @@ MonoBehaviour:
   m_graph: {fileID: 0}
   m_tileColors: {fileID: 11400000, guid: 4d4caf9f30a1b364cbc96823727aea6a, type: 2}
   m_terrainCosts: {fileID: 0}
+  edgeColor: {r: 1, g: 1, b: 1, a: 1}
+  nodesAndEdgesGizmoHeight: 0.15
   nodeViews:
   - {fileID: 4363925322945999694}
   - {fileID: 862497454172536309}
   - {fileID: 1392540493806315871}
   - {fileID: 734888649979636716}
+  walls: []
+  drawGizmo: 1
 --- !u!1 &1488538907564697598
 GameObject:
   m_ObjectHideFlags: 0

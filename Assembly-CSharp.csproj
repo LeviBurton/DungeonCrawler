@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Burton.Lib\PriorityQueue\IndexedPriorityQueueLow.cs" />
     <Compile Include="Assets\Scripts\Burton.Lib\PriorityQueue\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GizmosUtility.cs" />
     <Compile Include="Assets\Scripts\Graph.cs" />
     <Compile Include="Assets\Scripts\Graph\UnityEdge.cs" />
     <Compile Include="Assets\Scripts\Graph\UnityGraph.cs" />
@@ -99,10 +100,12 @@
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMover.cs" />
     <Compile Include="Assets\Scripts\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\Stats.cs" />
     <Compile Include="Assets\Scripts\TerrainCosts.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\TileColors.cs" />
     <Compile Include="Assets\Scripts\TileData.cs" />
+    <Compile Include="Assets\Scripts\TurnManager.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

@@ -5,51 +5,83 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+// TODO: eventually we will need to consider controlling multiple "pawns"
+public class PlayerManager : TurnManager
 {
-    Board board;
+    public Stats stats;
     public GameManager gameManager;
-
-    Pathfinder m_pathFinder;
-    public List<int> pathToTarget = new List<int>();
-
-    public int startIndex;
     public int goalIndex;
 
-    void Awake()
+    Board m_board;
+    PlayerMover m_playerMover;
+    Pathfinder m_pathFinder;
+    NavGraphNode m_currentNode;
+    List<int> pathToTarget = new List<int>();
+
+    protected override void Awake()
     {
+        base.Awake();
+
         m_pathFinder = GetComponent<Pathfinder>();
-        board = FindObjectOfType<Board>();
+        m_board = FindObjectOfType<Board>();
+        m_playerMover = GetComponent<PlayerMover>();
     }
 
     void Start()
     {
-        m_pathFinder.SetGraph(board.graph);
-        m_pathFinder.SetGraphView(board.graphView);
-
-        StartCoroutine(WaitRoutine());
-
-    }
-
-    IEnumerator WaitRoutine()
-    {
-        yield return new WaitForSeconds(3f);
-
-        FindPath();
+        m_pathFinder.SetGraph(m_board.graph);
+        m_pathFinder.SetGraphView(m_board.graphView);
+        m_currentNode =  m_board.GetNavGraphNodeAtPosition(transform.position);
     }
 
     [Button]
-    void FindPath()
+    public void FindPath()
     {
-        m_pathFinder.SetGraph(board.graph);
-        m_pathFinder.SetGraphView(board.graphView);
+        m_playerMover.UpdateCurrentNode();
+        m_pathFinder.SetGraph(m_board.graph);
+        m_pathFinder.SetGraphView(m_board.graphView);
+        m_currentNode = m_board.GetNavGraphNodeAtPosition(transform.position);
 
-        if (board.graph != null)
+        if (m_board.graph != null)
         {
-            board.graph.ResetNodeColors();
+            m_board.graph.ResetNodeColors();
         }
 
-        m_pathFinder.FindPath(startIndex, goalIndex);
+        if (m_pathFinder.FindPath(m_currentNode.NodeIndex, goalIndex))
+        {
+            var pathNodes = m_pathFinder.pathToTarget;
+
+            // Remove current node from the path, since we are already on it.
+            pathNodes.Remove(m_currentNode.NodeIndex);
+
+            MoveAlongPath(pathNodes);
+        }
+    }
+
+    public void MoveAlongPath(List<int> nodes)
+    {
+        StartCoroutine(MoveAlongPathRoutine(nodes));
+    }
+
+    IEnumerator MoveAlongPathRoutine(List<int> nodes)
+    {
+        foreach (var node in nodes)
+        {
+            m_playerMover.Move(m_board.GetNode(node).position, 0f);
+
+            while (m_playerMover.isMoving)
+            {
+                yield return null;
+            }
+
+            FinishTurn();
+        }
+    }
+
+    public override void FinishTurn()
+    {
+  //      CaptureEnemies();
+        base.FinishTurn();
     }
 }
 

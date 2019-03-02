@@ -56,8 +56,9 @@ public class Pathfinder : MonoBehaviour
     }
 
     [Button]
-    public void FindPath(int startNodeIndex, int goalNodeIndex)
+    public bool FindPath(int startNodeIndex, int goalNodeIndex)
     {
+
         this.startNodeIndex = startNodeIndex;
         this.goalNodeIndex = goalNodeIndex;
 
@@ -83,27 +84,19 @@ public class Pathfinder : MonoBehaviour
                     node.nodeView.ColorNode(pathColor);
                 }
             }
+
+            return true;
+
         }
-
-        var playerMover = FindObjectOfType<PlayerMover>();
-        playerMover.SetGraphView(m_graphView);
-
-        MoveAlongPath();
-    }
-
-    public void MoveAlongPath()
-    {
-        StartCoroutine(MoveAlongPathRoutine());
-    }
-
-    IEnumerator MoveAlongPathRoutine()
-    {
-        var playerMover = FindObjectOfType<PlayerMover>();
-
-        foreach (var node in pathToTarget)
+        else
         {
-            playerMover.Move(m_graph.GetNode(node).position, 0f);
-            yield return new WaitForSeconds(2.0f);
+            return false;
         }
+
+       // var playerMover = FindObjectOfType<PlayerMover>();
+       // playerMover.SetGraphView(m_graphView);
+
+       //// MoveAlongPath();
     }
+
 }

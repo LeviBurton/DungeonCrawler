@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerMover : Mover
 {
-   // PlayerCompass m_playerCompass;
+    // PlayerCompass m_playerCompass;
+
+    Board board;
 
     protected override void Awake()
     {
         base.Awake();
 
-      //  m_playerCompass = Object.FindObjectOfType<PlayerCompass>().GetComponent<PlayerCompass>();
+        //  m_playerCompass = Object.FindObjectOfType<PlayerCompass>().GetComponent<PlayerCompass>();
+        board = FindObjectOfType<Board>();
+        m_graphView = board.GetComponent<GraphView>();
     }
 
     protected override void Start()
@@ -18,24 +22,19 @@ public class PlayerMover : Mover
         base.Start();
 
         UpdateBoard();
+        UpdateCurrentNode();
     }
 
     void UpdateBoard()
     {
-        //if (m_board != null)
-        //{
-        //    m_board.UpdatePlayerNode();
-        //}
+        if (board != null)
+        {
+            board.UpdatePlayerNode();
+        }
     }
 
     protected override IEnumerator MoveRoutine(Vector3 destinationPos, float delayTime)
     {
-        // disable PlayerCompass arrows
-        //if (m_playerCompass != null)
-        //{
-        //    m_playerCompass.ShowArrows(false);
-        //}
-
         // run the parent class MoveRoutine
         yield return StartCoroutine(base.MoveRoutine(destinationPos, delayTime));
 

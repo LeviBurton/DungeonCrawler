@@ -87,10 +87,13 @@ public class Mover : MonoBehaviour
         isMoving = true;
         destination = destinationPos;
 
+        // TODO: we should first check if we have to rotate first.
+        // if we don't, then don't do the below.  Only run the code below 
+        // if we *actually* changed direction.  Otherwise all the timing gets thrown off.
         if (faceDestination)
         {
-            yield return new WaitForSeconds(0.25f);
             FaceDestination();
+            yield return new WaitForSeconds(rotateTime);
         }
 
         yield return new WaitForSeconds(delayTime);
@@ -142,7 +145,7 @@ public class Mover : MonoBehaviour
         Move(newPosition, 0);
     }
 
-    protected void UpdateCurrentNode()
+    public void UpdateCurrentNode()
     {
         if (m_graphView != null)
         {
